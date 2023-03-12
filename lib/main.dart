@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'screens/first_login_shared/log_in_screen.dart';
-import 'screens/login_screen_using_shared_preference/shared_preference_log_in.dart';
 
-void main() {
+// void main() {
+//   runApp(const MyApp());
+// }
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? email = prefs.getString('email') ?? "";
+  String? password = prefs.getString('password') ?? "";
+  prefs.setString('email', email);
+  prefs.setString('password',password);
   runApp(const MyApp());
 }
 
@@ -17,8 +26,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      // home: const LoginPage(),
-      home: const LoginScreen(),
+      home: const LoginPage(),
     );
   }
 }

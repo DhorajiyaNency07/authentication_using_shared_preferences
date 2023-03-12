@@ -1,5 +1,6 @@
 import 'package:authentication_using_shared_preferences/functions/auth_services_function.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'home_screen.dart';
 import 'sign_up_screen.dart';
 
@@ -11,11 +12,13 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
   final AuthService _auth = AuthService();
+  // SharedPreferences? sharedPreferences;
+
   final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  String _errorMessage = "";
+  String errorMessage = "";
 
   @override
   void initState() {
@@ -46,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             children: [
               TextFormField(
-                controller: _emailController,
+                controller: emailController,
                 keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
                   hintText: "Email",
@@ -57,9 +60,17 @@ class _LoginPageState extends State<LoginPage> {
                   }
                   return null;
                 },
+                // validator: (value) {
+                //   if (value!.isEmpty ||
+                //       !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                //           .hasMatch(value)) {
+                //     return 'Enter a valid email!';
+                //   }
+                //   return null;
+                // },
               ),
               TextFormField(
-                controller: _passwordController,
+                controller: passwordController,
                 obscureText: true,
                 decoration: const InputDecoration(
                   hintText: "Password",
@@ -70,14 +81,22 @@ class _LoginPageState extends State<LoginPage> {
                   }
                   return null;
                 },
+                // validator: (value) {
+                //   if (value!.isEmpty ||
+                //       !RegExp(r"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$")
+                //           .hasMatch(value)) {
+                //     return 'Enter a valid Password!';
+                //   }
+                //   return null;
+                // },
               ),
               const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     bool success = await _auth.signIn(
-                      _emailController.text.trim(),
-                      _passwordController.text.trim(),
+                      emailController.text,
+                      passwordController.text,
                     );
                     if (success) {
                       Navigator.pushReplacement(
@@ -86,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
                       );
                     } else {
                       setState(() {
-                        _errorMessage = "Invalid email or password";
+                        errorMessage = "Invalid email or password";
                       });
                     }
                   }
@@ -103,9 +122,9 @@ class _LoginPageState extends State<LoginPage> {
                 },
                 child: const Text("Don't have an account? Sign up"),
               ),
-              if (_errorMessage.isNotEmpty)
+              if (errorMessage.isNotEmpty)
                 Text(
-                  _errorMessage,
+                  errorMessage,
                   style: const TextStyle(color: Colors.red),
                 ),
             ],
