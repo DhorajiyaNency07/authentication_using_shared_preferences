@@ -1,6 +1,5 @@
 import 'package:authentication_using_shared_preferences/functions/auth_services_function.dart';
 import 'package:flutter/material.dart';
-
 import 'home_screen.dart';
 
 class SignUpPage extends StatefulWidget {

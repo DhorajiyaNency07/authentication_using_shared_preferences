@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'log_in_screen.dart';
+import 'screens/first_login_shared/log_in_screen.dart';
+import 'screens/login_screen_using_shared_preference/shared_preference_log_in.dart';
 
-// void main() => runApp(MyApp());
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  String? email = prefs.getString('userEmail');
-  String? password = prefs.getString('userPassword');
-  runApp(MyApp(email: email, password: password));
+void main() {
+  runApp(const MyApp());
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key, String? email, String? password});
-
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +17,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const LoginPage(),
+      // home: const LoginPage(),
+      home: const LoginScreen(),
     );
   }
 }
-
 
 // import 'package:authentication_using_shared_preferences/log_in_screen.dart';
 // import 'package:flutter/material.dart';
