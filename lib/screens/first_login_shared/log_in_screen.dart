@@ -1,6 +1,5 @@
 import 'package:authentication_using_shared_preferences/functions/auth_services_function.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'home_screen.dart';
 import 'sign_up_screen.dart';
 
@@ -15,7 +14,6 @@ class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final AuthService _auth = AuthService();
-  // SharedPreferences? sharedPreferences;
 
   final _formKey = GlobalKey<FormState>();
   String errorMessage = "";
