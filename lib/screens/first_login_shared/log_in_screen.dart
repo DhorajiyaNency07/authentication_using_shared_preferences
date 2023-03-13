@@ -55,19 +55,13 @@ class _LoginPageState extends State<LoginPage> {
                   hintText: "Email",
                 ),
                 validator: (value) {
-                  if (value!.isEmpty) {
-                    return "Please enter an email";
+                  if (value!.isEmpty ||
+                      !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                          .hasMatch(value)) {
+                    return 'Enter a valid email!';
                   }
                   return null;
                 },
-                // validator: (value) {
-                //   if (value!.isEmpty ||
-                //       !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                //           .hasMatch(value)) {
-                //     return 'Enter a valid email!';
-                //   }
-                //   return null;
-                // },
               ),
               TextFormField(
                 controller: passwordController,
@@ -76,19 +70,13 @@ class _LoginPageState extends State<LoginPage> {
                   hintText: "Password",
                 ),
                 validator: (value) {
-                  if (value!.isEmpty) {
-                    return "Please enter a password";
+                  if (value!.isEmpty ||
+                      !RegExp(r"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$")
+                          .hasMatch(value)) {
+                    return 'Enter a valid Password!';
                   }
                   return null;
                 },
-                // validator: (value) {
-                //   if (value!.isEmpty ||
-                //       !RegExp(r"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$")
-                //           .hasMatch(value)) {
-                //     return 'Enter a valid Password!';
-                //   }
-                //   return null;
-                // },
               ),
               const SizedBox(height: 16.0),
               ElevatedButton(
