@@ -31,6 +31,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
+// i can able to log in but not sign up here [error -- 2]
+
 // import 'package:authentication_using_shared_preferences/log_in_screen.dart';
 // import 'package:flutter/material.dart';
 // import 'package:shared_preferences/shared_preferences.dart';

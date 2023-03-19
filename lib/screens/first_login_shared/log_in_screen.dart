@@ -53,13 +53,20 @@ class _LoginPageState extends State<LoginPage> {
                   hintText: "Email",
                 ),
                 validator: (value) {
-                  if (value!.isEmpty ||
-                      !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                          .hasMatch(value)) {
-                    return 'Enter a valid email!';
+                  if (value!.isEmpty || !value.contains('@')) {
+                    return 'Please Enter valid Email';
+                  } else {
+                    return null;
                   }
-                  return null;
                 },
+                // validator: (value) {
+                //   if (value!.isEmpty ||
+                //       !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                //           .hasMatch(value)) {
+                //     return 'Enter a valid email!';
+                //   }
+                //   return null;
+                // },
               ),
               TextFormField(
                 controller: passwordController,
@@ -68,13 +75,20 @@ class _LoginPageState extends State<LoginPage> {
                   hintText: "Password",
                 ),
                 validator: (value) {
-                  if (value!.isEmpty ||
-                      !RegExp(r"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$")
-                          .hasMatch(value)) {
-                    return 'Enter a valid Password!';
+                  if (value!.length < 6) {
+                    return 'Please Enter Password of min length 6';
+                  } else {
+                    return null;
                   }
-                  return null;
                 },
+                // validator: (value) {
+                //   if (value!.isEmpty ||
+                //       !RegExp(r"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$")
+                //           .hasMatch(value)) {
+                //     return 'Enter a valid Password!';
+                //   }
+                //   return null;
+                // },
               ),
               const SizedBox(height: 16.0),
               ElevatedButton(
@@ -89,10 +103,12 @@ class _LoginPageState extends State<LoginPage> {
                         context,
                         MaterialPageRoute(builder: (context) => HomePage()),
                       );
-                    } else {
+                    }
+                    else {
                       setState(() {
                         errorMessage = "Invalid email or password";
                       });
+                      //   errorMessage = "Invalid email or password";
                     }
                   }
                 },
